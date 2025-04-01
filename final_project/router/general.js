@@ -24,20 +24,46 @@ public_users.post("/register", (req, res) => {
     return res.status(404).json({ message: "Unable to register user." });
 });
 
+let promiseTimeout = 2000;
+
 // Get the book list available in the shop
 public_users.get('/', function (req, res) {
-    // Send JSON response with formatted friends data
-    res.send(JSON.stringify(books, null, 4));
+    let booksPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Promise done");
+            resolve()
+        }, promiseTimeout)
+    })
+    console.log("Get the book list available in the shop");
+    booksPromise.then(() => {
+        res.send(JSON.stringify(books, null, 4));
+    });
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn', function (req, res) {
+    let booksPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Promise done");
+            resolve()
+        }, promiseTimeout)
+    })
+    console.log("Get book details based on ISBN");
     const isbn = req.params.isbn;
-    res.send(books[isbn]);
+    booksPromise.then(() => {
+        res.send(books[isbn]);
+    });
 });
 
 // Get book details based on author
 public_users.get('/author/:author', function (req, res) {
+    let booksPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Promise done");
+            resolve()
+        }, promiseTimeout)
+    })
+    console.log("Get book details based on author");
     let authorName = req.params.author;
 
     let foundBooks = [];
@@ -49,7 +75,9 @@ public_users.get('/author/:author', function (req, res) {
             }
         }
     }
-    res.send(foundBooks);
+    booksPromise.then(() => {
+        res.send(foundBooks);
+    });
 });
 
 function stringHasSubstring(mainString, substring) {
@@ -58,6 +86,13 @@ function stringHasSubstring(mainString, substring) {
 
 // Get all books based on title
 public_users.get('/title/:title', function (req, res) {
+    let booksPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Promise done");
+            resolve()
+        }, promiseTimeout)
+    })
+    console.log("Get all books based on title");
     let title = req.params.title;
 
     let foundBooks = [];
@@ -70,7 +105,9 @@ public_users.get('/title/:title', function (req, res) {
             }
         }
     }
-    res.send(foundBooks);
+    booksPromise.then(() => {
+        res.send(foundBooks);
+    });
 });
 
 //  Get book review
